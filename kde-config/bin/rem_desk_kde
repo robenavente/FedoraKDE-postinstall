@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# remove last desktop (keeps at least one)
+count=$(qdbus org.kde.KWin /VirtualDesktopManager \
+  org.freedesktop.DBus.Properties.Get org.kde.KWin.VirtualDesktopManager count)
+
+if [ "$count" -gt 1 ]; then
+  last_id=$(qdbus --literal org.kde.KWin /VirtualDesktopManager \
+    org.freedesktop.DBus.Properties.Get org.kde.KWin.VirtualDesktopManager desktops \
+    | grep -oE '[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}' \
+    | tail -1)
+  qdbus org.kde.KWin /VirtualDesktopManager \
+    org.kde.KWin.VirtualDesktopManager.removeDesktop "$last_id"
+fi
+

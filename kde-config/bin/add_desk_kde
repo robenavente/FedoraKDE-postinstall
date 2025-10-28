@@ -1,0 +1,7 @@
+#!/bin/bash
+pos=$(qdbus org.kde.KWin /VirtualDesktopManager \
+  org.freedesktop.DBus.Properties.Get org.kde.KWin.VirtualDesktopManager count)
+
+qdbus org.kde.KWin /VirtualDesktopManager \
+  org.kde.KWin.VirtualDesktopManager.createDesktop "$pos" "Desktop $((pos+1))"
+
