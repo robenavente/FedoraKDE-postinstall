@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=/home/roberto/bin/add_desk_kde
+Name=Add a Virtual Desk in KDE
+NoDisplay=true
+StartupNotify=false
+Type=Application
+X-KDE-GlobalAccel-CommandShortcut=true

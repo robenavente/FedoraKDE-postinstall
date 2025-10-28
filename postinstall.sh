@@ -36,7 +36,7 @@ echo "Installing essential packages"
 mkdir -p "$POST_INSTALL_DIR"
 cd "$POST_INSTALL_DIR"
 
-sudo dnf install neovim htop git tmux kvantum
+sudo dnf install neovim htop git tmux kvantum qt-qdbusviewer
 
 
 if [[ ! -d "$REPO_DIR/.git" ]]; then
@@ -152,18 +152,28 @@ if [[ "$REPLY" =~ ^[Yy]$ ]]; then
     ##################################
     
     #Getting KARA plasmoid:
-    if [[ ! -d "WhiteSur-cursors/.git" ]]; then
+    if [[ ! -d "kara/.git" ]]; then
         git clone https://github.com/dhruv8sh/kara.git
     fi
-    cp -r "kara"  ~/.local/share/plasma/plasmoids/org.dhruv8sh.kara
-    
-    
+    mkdir -p  ~/.local/share/plasma/plasmoids/org.dhruv8sh.kara
+    cp -r kara/*  ~/.local/share/plasma/plasmoids/org.dhruv8sh.kara
 
-
-
-
-    
-
+    #Catppuchin color scheme for konsole
+    if [[ ! -d "konsole/.git" ]]; then
+        git clone https://github.com/catppuccin/konsole.git
+    fi
+    sudo mkdir -p /usr/share/konsole/
+    sudo cp konsole/themes/* /usr/share/konsole/
+      
+    #Copying configuration files
+    cd "$REPO_DIR/kde-config"
+    mkdir -p "$HOME/bin"
+    cp bin/* "$HOME/bin"
+    cp -r .config/* "$HOME/.config"
+    mkdir -p "$HOME/.local/share/applications"
+    cp  .local/share/* ~/.local/share/
 fi
+
+
 sudo rm -f "$MARKER"
 echo ">>> Post-install completed successfully."
