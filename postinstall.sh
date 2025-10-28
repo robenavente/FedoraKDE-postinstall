@@ -171,7 +171,7 @@ if [[ "$REPLY" =~ ^[Yy]$ ]]; then
     cp bin/* "$HOME/bin"
     cp -r .config/* "$HOME/.config"
     mkdir -p "$HOME/.local/share/applications"
-    cp  .local/share/* ~/.local/share/
+    cp -r .local/share/* ~/.local/share/
 fi
 
 
