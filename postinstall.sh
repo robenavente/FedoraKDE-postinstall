@@ -63,7 +63,7 @@ if [[ "$REPLY" =~ ^[Yy]$ ]]; then
       git clone https://github.com/vinceliuice/Qogir-kde.git
     fi
     cd "Qogir-kde"
-    sudo ./install.sh
+    ./install.sh
     cd ".."
     
     #Install Colloid Theme
