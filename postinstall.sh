@@ -36,7 +36,7 @@ echo "Installing essential packages"
 mkdir -p "$POST_INSTALL_DIR"
 cd "$POST_INSTALL_DIR"
 
-sudo dnf install neovim htop git tmux kvantum qt-qdbusviewer
+sudo dnf install neovim htop git tmux kvantum qt-qdbusviewer dnf-plugins-core
 
 
 if [[ ! -d "$REPO_DIR/.git" ]]; then
@@ -172,6 +172,80 @@ if [[ "$REPLY" =~ ^[Yy]$ ]]; then
     cp -r .config/* "$HOME/.config"
     mkdir -p "$HOME/.local/share/applications"
     cp -r .local/share/* ~/.local/share/
+fi
+
+# ---------- Stage 4 ----------
+#Installing additional packages and adding repos
+
+read -p "Would you like to install flatpak and enable flathub? [y/N] " REPLY
+if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+    sudo dnf install flatpak &&
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+fi
+
+read -p "Would you like to install timeshift and enable quotas for /? [y/N] " REPLY
+if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+    sudo dnf install timeshift &&
+    sudo btrfs quota enable /
+fi
+
+read -p "Would you like to install Google Chrome and Brave browser? [y/N] " REPLY
+if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+     
+     #Brave
+     sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+     sudo dnf install brave-browser
+     #Chrome
+     wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+     sudo dnf install ./google-chrome-stable_current_x86_64.rpm
+fi
+
+read -p "Enable rpm fusion free and nonfree repos? [y/N] " REPLY
+if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+    # Enable Free repository
+    sudo dnf install \
+    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+
+    # Enable Non-Free repository
+    sudo dnf install \
+    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+fi
+
+read -p "Install VScodium? [y/N] " REPLY
+if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+    # Enable Free repository
+    sudo rpmkeys --import https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg
+    printf "[gitlab.com_paulcarroty_vscodium_repo]\nname=download.vscodium.com\nbaseurl=https://download.vscodium.com/rpms/\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg\nmetadata_expire=1h\n" | sudo tee -a /etc/yum.repos.d/vscodium.repo
+    sudo dnf install codium
+fi
+
+read -p "Install NVidia drivers (from NVidia repo)[y/N] " REPLY
+if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+    sudo dnf install kernel-devel-matched kernel-headers
+    #distro="fedora$(rpm -E %fedora)"
+    #There is no fedora43 repo for now, so:
+    distro="fedora42"
+    arch="x86_64"
+    sudo dnf config-manager addrepo --from-repofile=https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-$distro.repo
+    sudo dnf clean expire-cache
+    sudo dnf install nvidia-open
+fi
+
+read -p "Install Intel MKL [y/N] " REPLY
+if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+    tee > oneAPI.repo << EOF
+[oneAPI]
+name=Intel® oneAPI repository
+baseurl=https://yum.repos.intel.com/oneapi
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+EOF
+
+    sudo cp oneAPI.repo /etc/yum.repos.d
+    sudo dnf install intel-oneapi-mkl intel-oneapi-mkl-devel   
 fi
 
 
