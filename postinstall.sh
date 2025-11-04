@@ -180,7 +180,7 @@ fi
 read -p "Would you like to install flatpak and enable flathub? [y/N] " REPLY
 if [[ "$REPLY" =~ ^[Yy]$ ]]; then
     sudo dnf install flatpak &&
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 fi
 
 read -p "Would you like to install timeshift and enable quotas for /? [y/N] " REPLY
@@ -247,7 +247,6 @@ EOF
     sudo cp oneAPI.repo /etc/yum.repos.d
     sudo dnf install intel-oneapi-mkl intel-oneapi-mkl-devel   
 fi
-
 
 sudo rm -f "$MARKER"
 echo ">>> Post-install completed successfully."
