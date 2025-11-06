@@ -1,5 +1,5 @@
 [Desktop Entry]
-Exec=~/bin/rem_desk_kde
+Exec=/home/roberto/bin/rem_desk_kde
 Name=Remove a Virtual Desk in KDE
 NoDisplay=true
 StartupNotify=false

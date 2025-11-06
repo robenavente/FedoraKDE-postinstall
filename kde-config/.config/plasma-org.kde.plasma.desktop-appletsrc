@@ -21,7 +21,7 @@ plugin=org.kde.plasma.kickoff
 [Containments][59][Applets][60][Configuration]
 PreloadWeight=100
 immutability=1
-popupHeight=538
+popupHeight=539
 popupWidth=693
 
 [Containments][59][Applets][60][Configuration][ConfigDialog]
@@ -133,7 +133,7 @@ immutability=1
 plugin=org.kde.plasma.volume
 
 [Containments][59][Applets][64][Applets][77][Configuration]
-PreloadWeight=60
+PreloadWeight=65
 
 [Containments][59][Applets][64][Applets][77][Configuration][General]
 migrated=true
@@ -150,7 +150,7 @@ immutability=1
 plugin=org.kde.plasma.brightness
 
 [Containments][59][Applets][64][Applets][80][Configuration]
-PreloadWeight=65
+PreloadWeight=90
 
 [Containments][59][Applets][64][Applets][81]
 immutability=1

@@ -133,8 +133,8 @@ ForegroundPositive=1,162,153
 ForegroundVisited=0,188,212
 
 [DirSelect Dialog]
-DirSelectDialog Size=832,579
-History Items[$e]=file:$HOME/main/musica/AnimalsAsLeaders,file:$HOME,file:$HOME/main/musica,file:$HOME/main/musica,file:$HOME/main,file:$HOME/data/VirtualBox
+DirSelectDialog Size=926,579
+History Items[$e]=file:$HOME/main/musica/Iron_Maiden-Best_Of_The_Beast-2cd-256k/Best_of_the_Beast-CD1-,file:$HOME/main/musica/Iron_Maiden-Best_Of_The_Beast-2cd-256k/Best_of_the_Beast-CD2-,file:$HOME/main/musica/AnimalsAsLeaders,file:$HOME,file:$HOME/main/musica,file:$HOME/main/musica,file:$HOME/main,file:$HOME/data/VirtualBox
 Splitter State=\x00\x00\x00\xff\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x98\x00\x00\x02\xa8\x00\xff\xff\xff\xff\x01\x00\x00\x00\x01\x00
 
 [General]

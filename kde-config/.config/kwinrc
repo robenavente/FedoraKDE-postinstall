@@ -9,11 +9,15 @@ Id_4=d9ef4e2d-744d-4a0b-b412-24f521eb7cd3
 Number=4
 Rows=1
 
+[Effect-blur]
+NoiseStrength=0
+
 [NightColor]
 Active=true
-EveningBeginFixed=2000
-Mode=Times
-MorningBeginFixed=0700
+
+[Plugins]
+blurEnabled=true
+contrastEnabled=false
 
 [TabBox]
 LayoutName=compact
