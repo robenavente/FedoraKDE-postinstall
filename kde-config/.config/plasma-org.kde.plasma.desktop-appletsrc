@@ -150,7 +150,7 @@ immutability=1
 plugin=org.kde.plasma.brightness
 
 [Containments][59][Applets][64][Applets][80][Configuration]
-PreloadWeight=90
+PreloadWeight=95
 
 [Containments][59][Applets][64][Applets][81]
 immutability=1
@@ -295,7 +295,7 @@ DialogWidth=720
 [Containments][59][Applets][97][Configuration][General]
 icon=user-home-open
 positions={"0x0":[],"1920x1080":[]}
-url=file:///home/roberto
+url=~
 useCustomIcon=true
 
 [Containments][59][Applets][98]
