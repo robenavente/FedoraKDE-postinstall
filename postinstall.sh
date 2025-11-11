@@ -9,6 +9,10 @@ POST_INSTALL_DIR="$HOME/postinstall"
 REPO_DIR="$POST_INSTALL_DIR/FedoraKDE-postinstall"
 
 # ---------- Stage 1 ----------
+#Speed up repos:
+
+echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf 
+
 if [[ ! -f "$MARKER" ]]; then
   echo ">>> Performing initial system upgrade..."
   sudo dnf --refresh upgrade 
