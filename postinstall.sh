@@ -193,7 +193,7 @@ if [[ "$REPLY" =~ ^[Yy]$ ]]; then
     sudo btrfs quota enable /
 fi
 
-read -p "Would you like to install Google Chrome and Brave browser? [y/N] " REPLY
+read -p "Would you like to install Google Chrome, Brave browser and LibreWolf? [y/N] " REPLY
 if [[ "$REPLY" =~ ^[Yy]$ ]]; then
      
      #Brave
@@ -203,6 +203,9 @@ if [[ "$REPLY" =~ ^[Yy]$ ]]; then
      #Chrome
      wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
      sudo dnf install ./google-chrome-stable_current_x86_64.rpm
+     # LibreWolf
+     curl -fsSL https://repo.librewolf.net/librewolf.repo | sudo pkexec tee /etc/yum.repos.d/librewolf.repo
+     sudo dnf install librewolf
 fi
 
 read -p "Enable rpm fusion free and nonfree repos? [y/N] " REPLY
