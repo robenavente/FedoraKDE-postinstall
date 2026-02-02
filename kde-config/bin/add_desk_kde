@@ -1,7 +1,10 @@
 #!/bin/bash
-pos=$(qdbus org.kde.KWin /VirtualDesktopManager \
+
+QDBUS="$(command -v qdbus6 || command -v qdbus5 || command -v qdbus || true)"
+
+pos=$($QDBUS org.kde.KWin /VirtualDesktopManager \
   org.freedesktop.DBus.Properties.Get org.kde.KWin.VirtualDesktopManager count)
 
-qdbus org.kde.KWin /VirtualDesktopManager \
+$QDBUS org.kde.KWin /VirtualDesktopManager \
   org.kde.KWin.VirtualDesktopManager.createDesktop "$pos" "Desktop $((pos+1))"
 

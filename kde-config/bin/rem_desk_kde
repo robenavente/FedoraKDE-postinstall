@@ -1,15 +1,17 @@
 #!/bin/bash
 
+QDBUS="$(command -v qdbus6 || command -v qdbus5 || command -v qdbus || true)"
+
 # remove last desktop (keeps at least one)
-count=$(qdbus org.kde.KWin /VirtualDesktopManager \
+count=$($QDBUS org.kde.KWin /VirtualDesktopManager \
   org.freedesktop.DBus.Properties.Get org.kde.KWin.VirtualDesktopManager count)
 
 if [ "$count" -gt 1 ]; then
-  last_id=$(qdbus --literal org.kde.KWin /VirtualDesktopManager \
+  last_id=$($QDBUS --literal org.kde.KWin /VirtualDesktopManager \
     org.freedesktop.DBus.Properties.Get org.kde.KWin.VirtualDesktopManager desktops \
     | grep -oE '[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}' \
     | tail -1)
-  qdbus org.kde.KWin /VirtualDesktopManager \
+  $QDBUS org.kde.KWin /VirtualDesktopManager \
     org.kde.KWin.VirtualDesktopManager.removeDesktop "$last_id"
 fi
 
