@@ -9,11 +9,12 @@ POST_INSTALL_DIR="$HOME/postinstall"
 REPO_DIR="$POST_INSTALL_DIR/FedoraKDE-postinstall"
 
 # ---------- Stage 1 ----------
-#Speed up repos:
 
-echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf 
 
 if [[ ! -f "$MARKER" ]]; then
+  #Speed up repos:
+  echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf 
+  
   echo ">>> Performing initial system upgrade..."
   sudo dnf --refresh upgrade 
   echo ">>> System is now up to date."
@@ -159,8 +160,21 @@ if [[ "$REPLY" =~ ^[Yy]$ ]]; then
     if [[ ! -d "kara/.git" ]]; then
         git clone https://github.com/dhruv8sh/kara.git
     fi
-    mkdir -p  ~/.local/share/plasma/plasmoids/org.dhruv8sh.kara
-    cp -r kara/*  ~/.local/share/plasma/plasmoids/org.dhruv8sh.kara
+    # Installing KARA depencies
+    sudo dnf install kf6-kitemmodels-devel plasma-workspace-devel libdrm-devel libepoxy-devel wayland-devel kwin-devel plasma-activities-devel extra-cmake-modules qt6-qtbase-devel qt6-qtdeclarative-devel kf6-plasma-devel kf6-ki18n-devel
+    cd "kara"
+    sh "install.sh"
+    #Fixing paths for Fedora:
+    cat <<EOF >> "$HOME/.config/plasma-workspace/env/kara.sh"
+export QML2_IMPORT_PATH="$HOME/.local/lib/qml:$HOME/.local/lib64/qml:${QML2_IMPORT_PATH}"
+export QML_IMPORT_PATH="$HOME/.local/lib/qml:$HOME/.local/lib64/qml:${QML_IMPORT_PATH}"
+EOF
+
+    cd ".."
+
+
+    #mkdir -p  ~/.local/share/plasma/plasmoids/org.dhruv8sh.kara
+    #cp -r kara/*  ~/.local/share/plasma/plasmoids/org.dhruv8sh.kara
 
     #Catppuchin color scheme for konsole
     if [[ ! -d "konsole/.git" ]]; then
