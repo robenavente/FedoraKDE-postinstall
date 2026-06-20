@@ -246,7 +246,7 @@ if [[ "$REPLY" =~ ^[Yy]$ ]]; then
     sudo dnf install kernel-devel-matched kernel-headers
     #distro="fedora$(rpm -E %fedora)"
     #It is better to hard code the version. Nvidia repo is always available for a given version.
-    distro="fedora43"
+    distro="fedora44"
     arch="x86_64"
     sudo dnf config-manager addrepo --from-repofile=https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-$distro.repo
     sudo dnf clean expire-cache
